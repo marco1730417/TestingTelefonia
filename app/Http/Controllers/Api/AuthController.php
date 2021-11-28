@@ -69,10 +69,14 @@ class AuthController extends Controller
                 'message' => 'Error',
             ], 500);
         }
+        $personalize= Auth::user();
+        $collection = collect([$personalize]);
+        $collection->put('postulant', 'You are the best');
+       
         //Devolvemos el token
         return response()->json([
             'token' => $token,
-            'user' => Auth::user()
+            'user' => $collection
         ]);
     }
     //Función que utilizaremos para eliminar el token y desloquear
