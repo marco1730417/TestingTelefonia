@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Telefonos;
 use Illuminate\Http\Request;
@@ -23,8 +23,8 @@ class TelefonosController extends Controller
      */
     public function index()
     {
-        //Listamos todos los Telefonosos
-        return Telefonos::get();
+  
+        return Telefonos::all();
     }
     /**
      * Store a newly created resource in storage.

@@ -21,29 +21,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/* 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-    Route::post('login', [\App\Http\Controllers\Api\AuthController::class, 'login'])->name('login');
-    Route::post('logout', [\App\Http\Controllers\Api\AuthController::class, 'logout'])->name('logout');
-    Route::post('refresh', [\App\Http\Controllers\Api\AuthController::class, 'refresh'])->name('refresh');
-    Route::post('me', [\App\Http\Controllers\Api\AuthController::class, 'me'])->name('me');
 
 
-}); */
 
-Route::group(['middleware' => ['jwt.verify']], function() {
-    //Todo lo que este dentro de este grupo requiere verificación de usuario.
-   // Route::post('login', [AuthController::class, 'login']);
-    Route::post('login', [\App\Http\Controllers\Api\AuthController::class, 'login'])->name('login');
+Route::prefix('auth')->group(function () {
+    //Prefijo V1, todo lo que este dentro de este grupo se accedera escribiendo v1 en el navegador, es decir /api/v1/*
+    Route::post('authenticate', [\App\Http\Controllers\Api\AuthController::class, 'authenticate'])->name('authenticate');
+    Route::post('register', [\App\Http\Controllers\Api\AuthController::class, 'register'])->name('register');
   
-    Route::get('telefonos', [\App\Http\Controllers\Api\AuthController::class, 'index'])->name('telefonos');
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('get-user', [AuthController::class, 'getUser']);
-   Route::post('telefonos', [TelefonosController::class, 'store']);
-    Route::put('telefonos/{id}', [TelefonosController::class, 'update']);
-    Route::delete('telefonos/{id}', [TelefonosController::class, 'destroy']);
+    Route::get('telefonos/{id} ', [\App\Http\Controllers\Api\TelefonosController::class, 'show'])->name('show');
+   
+  
+      Route::group(['middleware' => ['jwt.verify']], function() {
+   //     Route::post('logout', [AuthController::class, 'logout']);
+   Route::get('telefonos', [\App\Http\Controllers\Api\TelefonosController::class, 'index'])->name('index');
+   
+        Route::post('logout', [\App\Http\Controllers\Api\AuthController::class, 'logout'])->name('logout');
+  
+       
+  /*       Route::post('get-user', [AuthController::class, 'getUser']);
+        Route::post('telefonos', [TelefonosController::class, 'store']);
+        Route::put('telefonos/{id}', [TelefonosController::class, 'update']);
+        Route::delete('telefonos/{id}', [TelefonosController::class, 'destroy']); */
+    });  
 });
