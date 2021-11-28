@@ -75,7 +75,7 @@ class AuthController extends Controller
             'user' => Auth::user()
         ]);
     }
-    //Función que utilizaremos para eliminar el token y desconectar al usuario
+    //Función que utilizaremos para eliminar el token y desloquear
     public function logout(Request $request)
     {
         //Validamos que se nos envie el token
