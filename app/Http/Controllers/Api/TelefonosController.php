@@ -34,7 +34,7 @@ class TelefonosController extends Controller
      */
     public function store(Request $request)
     {
-        //Validamos los datos
+        //Validamos los datos previo al ingreso de codigo
         $data = $request->only('name', 'price', 'stock');
         $validator = Validator::make($data, [
             'name' => 'required|max:50|string',
@@ -122,7 +122,7 @@ class TelefonosController extends Controller
         $Telefonos = Telefonos::findOrfail($id);
         //Eliminamos el Telefonoso
         $Telefonos->delete();
-        //Devolvemos la respuesta
+        //Telefono eliminado
         return response()->json([
             'message' => 'Telefonos deleted successfully'
         ], Response::HTTP_OK);

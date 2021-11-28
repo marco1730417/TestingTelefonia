@@ -73,7 +73,7 @@ class AuthController extends Controller
         $collection = collect([$personalize]);
         $collection->put('postulant', 'You are the best');
        
-        //Devolvemos el token
+        //Devolvemos el token personalizado para devolver el paload de mensaje you are the best
         return response()->json([
             'token' => $token,
             'user' => $collection
@@ -117,9 +117,9 @@ class AuthController extends Controller
         //Si no hay usuario es que el token no es valido o que ha expirado
         if(!$user)
             return response()->json([
-                'message' => 'Invalid token / token expired',
+                'message' => 'Invalid token o token expired',
             ], 401);
-        //Devolvemos los datos del usuario si todo va bien. 
+        //Devolvemos los datos del usuario si todo fue correcto. 
         return response()->json(['user' => $user]);
     }
 }
